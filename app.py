@@ -21,6 +21,10 @@ primary_parameter = st.sidebar.selectbox('Select a Primary Parameter', sorted(df
 secondary_parameter = st.sidebar.selectbox('Select a Secondary Parameter', sorted(df.columns[5:]))
 plot = st.sidebar.button('Plot Graph')
 
+st.write("Welcome to the India Data Explorer app!")
+st.write("This app allows you to explore data related to Indian states.")
+
+
 # Main content
 if plot:
     st.text('Size represents Primary parameter')
@@ -50,6 +54,7 @@ if plot:
     # Display the plot in the Streamlit app
     st.plotly_chart(fig, use_container_width=True)
 
+    
     # Data Summary
     st.header('Data Summary')
     st.write('Summary statistics for selected data:')
