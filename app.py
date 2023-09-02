@@ -29,7 +29,7 @@ primary_parameter = st.sidebar.selectbox('Select a Primary Parameter', sorted(df
 secondary_parameter = st.sidebar.selectbox('Select a Secondary Parameter', sorted(df.columns[5:]))
 plot = st.sidebar.button('Plot Graph')
 
-st.write("Welcome to the India Data Explorer app!!")
+st.write("Welcome to the India Data Explorer app!")
 st.write("This app allows you to explore data related to Indian states.")
 
 
