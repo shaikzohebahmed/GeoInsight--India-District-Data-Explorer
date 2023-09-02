@@ -2,9 +2,17 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import os
 
 # Load the data once at the beginning of the script to avoid reading it multiple times
-df = pd.read_csv('india.csv')
+data_file = 'india.csv'
+
+if os.path.exists(data_file):
+    df = pd.read_csv(data_file)
+else:
+    st.error("Data file not found.")
+    st.stop()
+
 
 # Create a list of unique states for the sidebar dropdown
 list_of_states = ['Overall India'] + list(df['State'].unique())
@@ -35,32 +43,34 @@ if plot:
     else:
         filtered_df = df[df['State'].isin(selected_states)]  # Filter by selected states
     
-    # Create the scatter plot using Plotly Express
-    fig = px.scatter_mapbox(
-        filtered_df,
-        lat="Latitude",
-        lon="Longitude",
-        color=secondary_parameter,
-        size=primary_parameter,
-        color_continuous_scale=px.colors.sequential.Plasma,
-        size_max=35,
-        zoom=4,
-        mapbox_style="carto-positron",
-        width=1200,
-        height=700,
-        hover_name='District'
-    )
-    
-    # Display the plot in the Streamlit app
-    st.plotly_chart(fig, use_container_width=True)
+    if primary_parameter and secondary_parameter:
+        # Create the scatter plot using Plotly Express
+        fig = px.scatter_mapbox(
+            filtered_df,
+            lat="Latitude",
+            lon="Longitude",
+            color=secondary_parameter,
+            size=primary_parameter,
+            color_continuous_scale=px.colors.sequential.Plasma,
+            size_max=35,
+            zoom=4,
+            mapbox_style="carto-positron",
+            width=1200,
+            height=700,
+            hover_name='District'
+        )
+        
+        # Display the plot in the Streamlit app
+        st.plotly_chart(fig, use_container_width=True)
 
-    
-    # Data Summary
-    st.header('Data Summary')
-    st.write('Summary statistics for selected data:')
-    st.write(filtered_df.describe())
+        # Data Summary
+        st.header('Data Summary')
+        st.write('Summary statistics for selected data:')
+        st.write(filtered_df.describe())
 
-    # Data Table
-    st.header('Data Table')
-    st.write('Displaying selected data in a table:')
-    st.dataframe(filtered_df)
+        # Data Table
+        st.header('Data Table')
+        st.write('Displaying selected data in a table:')
+        st.dataframe(filtered_df)
+    else:
+        st.warning('Please select both primary and secondary parameters for visualization.')
