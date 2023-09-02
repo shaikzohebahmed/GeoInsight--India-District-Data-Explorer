@@ -1,4 +1,4 @@
-# Streamlit India Data Explorer
+# GeoInsight: India District Data Explorer - Streamlit App
 
 This Streamlit application, named "India Data Explorer," is designed to help you visualize and explore data related to various states in India. It provides an interactive interface to select states, primary parameters, and secondary parameters, and then displays the corresponding data on a scatter map and in tables.
 
